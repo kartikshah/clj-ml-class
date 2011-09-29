@@ -23,7 +23,6 @@
   (train nil nil))
 
 
-
 (defn tokenize [row]
   (re-seq #"\w+" row))
 
@@ -31,31 +30,13 @@
   (filter #(> (count %) n)
           lst))
 
-(defn calc-freq [docs category]
-  (frequencies (length-filter 2 (get-features docs category))))
-
 (defn get-features [docs category]
   (flatten (map tokenize (category docs))))
 
-(def rslt (clj_ml_class.FileReader/process-files [:arts :sports] ["/Users/Kartik/dev/IdeaProjects/clj-ml/src/clj_ml_class/arts" "/Users/Kartik/dev/IdeaProjects/clj-ml/src/clj_ml_class/sports"]))
-;(println (calc-freq
-;                  (length-filter 2
-;                                 (get-features rslt :sports))))
+(defn calc-freq [docs category]
+  (frequencies (length-filter 2 (get-features docs category))))
 
-;(defn restructure1 [m mp tag]
-;  (let [entrykey (key mp)]
-;    (update-in m [entrykey] #(hash-map tag %))
-;    ))
-;
-;(defn restructure2 [m tag]
-;  (let [entrykeys (keys m)]
-;    (update-in m entrykeys #(hash-map tag %))
-;    ))
-;
-;(defn restructure3 [m tag]
-;  (let [entrykeys (keys m)]
-;    (update m #(hash-map tag %) entrykeys )
-;    ))
+(def docs (clj_ml_class.FileReader/process-files [:arts :sports] ["/Users/Kartik/dev/IdeaProjects/clj-ml-class/src/clj_ml_class/arts" "/Users/Kartik/dev/IdeaProjects/clj-ml-class/src/clj_ml_class/sports"]))
 
 (defn updatefn [tag]
   (fn [m entrykey] (update-in m [entrykey] #(hash-map tag %))))
@@ -72,9 +53,20 @@
             (keys docs))
        (keys docs)))
 
-(println (apply merge-with conj (all-features rslt)))
+(defn get-knowledge [docs] (apply merge-with conj (all-features docs)))
 
+(defn category-count
+  [knowledge category]
+  (reduce + 0 (filter #(not (nil? %)) (map category (vals knowledge)))))
 
-;(defn update
-;  [m f & ks]
-;  (merge m (zipmap ks (map (comp f m) ks))))
+(def select-values (comp vals select-keys))
+
+(defn feature-count
+  [knowledge feature category]
+   (apply cateogry (select-values knowledge [feature])))
+
+(defn feature-prob
+  [knowledge feature category]
+  (if (= category-count 0)
+      0
+      (/ (feature-count knowledge feature cateogry) (category-count knowledge category))))
