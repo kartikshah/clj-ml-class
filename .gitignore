@@ -6,3 +6,4 @@ classes
 out
 .idea
 *iml
+.DS_Store

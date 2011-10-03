@@ -17,5 +17,5 @@
 ; ["arts" "sports"]
 ; ["/Users/Kartik/dev/IdeaProjects/clj-ml/src/clj_ml_class/arts" "/Users/Kartik/dev/IdeaProjects/clj-ml/src/clj_ml_class/sports"])
 
-(def docs (clj_ml_class.FileReader/read-files [:arts :sports] ["/Users/Kartik/dev/IdeaProjects/clj-ml-class/src/clj_ml_class/arts" "/Users/Kartik/dev/IdeaProjects/clj-ml-class/src/clj_ml_class/sports"]))
+(def docs (clj_ml_class.reader/read-files [:arts :sports] ["/Users/Kartik/dev/IdeaProjects/clj-ml-class/src/clj_ml_class/arts" "/Users/Kartik/dev/IdeaProjects/clj-ml-class/src/clj_ml_class/sports"]))
 
