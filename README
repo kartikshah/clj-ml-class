@@ -1,13 +1,9 @@
-# clj-ml
+# clj-ml-class
 
-FIXME: write description
+@hmason 's Machine Learning Class/Workshop code in Clojure
 
-## Usage
-
-FIXME: write
+Refer equivalent Python implementation @ https://github.com/hmason/ml_class
 
 ## License
-
-Copyright (C) 2010 FIXME
 
 Distributed under the Eclipse Public License, the same as Clojure.
